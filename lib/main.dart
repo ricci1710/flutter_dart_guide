@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
                 questions: _questions,
                 questionIndex: _questionIndex,
               )
-            : const Result(),
+            : Result(_totalScore),
       ),
     );
   }
