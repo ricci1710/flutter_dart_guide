@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dart_guide/gradientappbar.dart';
 import 'package:flutter_dart_guide/quiz.dart';
 import 'package:flutter_dart_guide/result.dart';
 
@@ -60,8 +61,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text('My first App'),
+        appBar: GradientAppBar(
+          title: const Text('Text'),
+          gradientColors: const [Colors.black, Colors.white],
         ),
         body: _questionIndex < _questions.length
             ? Quiz(
