@@ -31,18 +31,20 @@ class Section4HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Container(
+          const SizedBox(
             width: double.infinity,
-            child: const Card(
+            child: Card(
               color: Colors.blue,
               elevation: 5,
               child: Text('CHART!'),
             ),
           ),
-          const Card(
-            color: Colors.red,
-            child: Text('LIST OF TX'),
-          ),
+          Column(
+              children: transaction
+                  .map((tx) => Card(
+                        child: Text(tx.title),
+                      ))
+                  .toList()),
         ],
       ),
     );
