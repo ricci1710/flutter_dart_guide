@@ -13,7 +13,7 @@ class Answer extends StatelessWidget {
       margin: const EdgeInsets.all(1),
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.blue),
+          backgroundColor: MaterialStateProperty.all(Colors.black38),
           foregroundColor: MaterialStateProperty.all(Colors.white),
         ),
         onPressed: selectHandler,

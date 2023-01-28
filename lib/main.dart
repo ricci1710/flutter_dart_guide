@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: GradientAppBar(
-          title: const Text('Text'),
+          title: const Text('My First App'),
           gradientColors: const [Colors.black, Colors.white],
         ),
         body: _questionIndex < _questions.length
