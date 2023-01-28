@@ -42,7 +42,21 @@ class Section4HomePage extends StatelessWidget {
           Column(
               children: transaction
                   .map((tx) => Card(
-                        child: Text(tx.title),
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Text(
+                                tx.amount.toString(),
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Text(tx.title),
+                                Text(tx.date.toString()),
+                              ],
+                            ),
+                          ],
+                        ),
                       ))
                   .toList()),
         ],
