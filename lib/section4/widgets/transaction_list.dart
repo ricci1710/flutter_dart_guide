@@ -12,6 +12,7 @@ class TransactionList extends StatelessWidget {
     return SizedBox(
       height: 550,
       child: ListView.builder(
+        // Virtual List
         itemBuilder: (ctx, index) {
           return Card(
             child: Row(
