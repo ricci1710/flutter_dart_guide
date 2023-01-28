@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dart_guide/answer.dart';
-import 'package:flutter_dart_guide/question.dart';
+import 'package:flutter_dart_guide/section2/answer.dart';
+import 'package:flutter_dart_guide/section2/question.dart';
 
 class Quiz extends StatelessWidget {
   final int questionIndex;
