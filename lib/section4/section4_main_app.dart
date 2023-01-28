@@ -66,9 +66,21 @@ class Section4HomePage extends StatelessWidget {
                               ),
                             ),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(tx.title),
-                                Text(tx.date.toString()),
+                                Text(
+                                  tx.title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  tx.date.toString(),
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
                               ],
                             ),
                           ],
