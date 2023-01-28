@@ -27,7 +27,12 @@ class NewTransaction extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                transactionHandler(titleController.text, double.parse(amountController.text));
+                transactionHandler(
+                  titleController.text,
+                  double.parse(
+                    amountController.text,
+                  ),
+                );
               },
               style: const ButtonStyle(
                 foregroundColor: MaterialStatePropertyAll(Colors.purple),
