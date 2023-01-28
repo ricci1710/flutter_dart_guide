@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+import './transaction.dart';
+
 class Section4MainApp extends StatelessWidget {
   const Section4MainApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter App',
       home: Section4HomePage(),
@@ -14,7 +16,12 @@ class Section4MainApp extends StatelessWidget {
 }
 
 class Section4HomePage extends StatelessWidget {
-  const Section4HomePage({Key? key}) : super(key: key);
+  final List<Transaction> transaction = [
+    Transaction(id: 'id1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
+    Transaction(id: 'id2', title: 'Weekly Groceries', amount: 16.53, date: DateTime.now()),
+  ];
+
+  Section4HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +40,7 @@ class Section4HomePage extends StatelessWidget {
             ),
           ),
           const Card(
+            color: Colors.red,
             child: Text('LIST OF TX'),
           ),
         ],
