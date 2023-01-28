@@ -40,7 +40,33 @@ class Section4HomePage extends StatelessWidget {
               child: Text('CHART!'),
             ),
           ),
+          Card(
+            elevation: 5,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const TextField(
+                    decoration: InputDecoration(labelText: 'Title'),
+                  ),
+                  const TextField(
+                    decoration: InputDecoration(labelText: 'Amount'),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    style: const ButtonStyle(
+                      foregroundColor: MaterialStatePropertyAll(Colors.purple),
+                    ),
+                    child: const Text('Add Transaction'),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: transaction
                   .map((tx) => Card(
                         child: Row(
