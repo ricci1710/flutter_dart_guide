@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import './widgets/user_transactions.dart';
+import 'package:flutter_dart_guide/section4/models/transaction.dart';
+import 'package:flutter_dart_guide/section4/widgets/new_transaction.dart';
+import 'package:flutter_dart_guide/section4/widgets/transaction_list.dart';
 
 class Section4MainApp extends StatelessWidget {
   const Section4MainApp({Key? key}) : super(key: key);
@@ -15,18 +16,54 @@ class Section4MainApp extends StatelessWidget {
   }
 }
 
-class Section4HomePage extends StatelessWidget {
+class Section4HomePage extends StatefulWidget {
   const Section4HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<Section4HomePage> createState() => _Section4HomePageState();
+}
+
+class _Section4HomePageState extends State<Section4HomePage> {
+  final List<Transaction> _userTransactions = [
+    Transaction(id: 'id1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
+    Transaction(id: 'id2', title: 'Weekly Groceries', amount: 16.53, date: DateTime.now()),
+  ];
+
+  void _addNewTransaction(String txTitle, double txAmount) {
+    final newTx = Transaction(
+      title: txTitle,
+      amount: txAmount,
+      date: DateTime.now(),
+      id: DateTime.now().toString(),
+    );
+
+    setState(() {
+      _userTransactions.add(newTx);
+    });
+  }
+
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return GestureDetector(
+          onTap: () {},
+          behavior: HitTestBehavior.opaque,
+          child: NewTransaction(_addNewTransaction),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flutter App'),
-        actions: const [
+        actions: [
           IconButton(
-            onPressed: null,
-            icon: Icon(
+            onPressed: () => _startAddNewTransaction(context),
+            icon: const Icon(
               Icons.add,
             ),
           ),
@@ -34,8 +71,8 @@ class Section4HomePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: const [
-            SizedBox(
+          children: [
+            const SizedBox(
               width: double.infinity,
               child: Card(
                 color: Colors.blue,
@@ -43,14 +80,14 @@ class Section4HomePage extends StatelessWidget {
                 child: Text('CHART!'),
               ),
             ),
-            UserTransactions(),
+            TransactionList(_userTransactions),
           ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {},
+        child: const Icon(Icons.add),
+        onPressed: () => _startAddNewTransaction(context),
       ),
     );
   }
