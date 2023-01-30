@@ -8,15 +8,29 @@ class Section4MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = ThemeData();
+    final ThemeData theme = ThemeData(
+      primarySwatch: Colors.purple,
+      fontFamily: 'Quicksand',
+      textTheme: ThemeData.light().textTheme.copyWith(
+            titleSmall: const TextStyle(
+              fontFamily: 'Open Sans',
+              fontSize: 18,
+            ),
+          ),
+      appBarTheme: const AppBarTheme(
+        titleTextStyle: TextStyle(
+          fontFamily: 'Open Sans',
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Personal Expenses',
       theme: theme.copyWith(
-        primaryColor: Colors.purple,
-        colorScheme: theme.colorScheme.copyWith(
-          secondary: Colors.amber,
-        ),
+        colorScheme: theme.colorScheme.copyWith(secondary: Colors.amber),
       ),
       home: const Section4HomePage(),
     );
@@ -66,7 +80,12 @@ class _Section4HomePageState extends State<Section4HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Personal Expenses'),
+        title: const Text(
+          'Personal Expenses',
+          style: TextStyle(
+            fontFamily: 'Open Sans',
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () => _startAddNewTransaction(context),
