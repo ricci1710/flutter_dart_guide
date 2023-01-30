@@ -46,8 +46,8 @@ class Section4HomePage extends StatefulWidget {
 
 class _Section4HomePageState extends State<Section4HomePage> {
   final List<Transaction> _userTransactions = [
-    Transaction(id: 'id1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
-    Transaction(id: 'id2', title: 'Weekly Groceries', amount: 16.53, date: DateTime.now()),
+    // Transaction(id: 'id1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
+    // Transaction(id: 'id2', title: 'Weekly Groceries', amount: 16.53, date: DateTime.now()),
   ];
 
   void _addNewTransaction(String txTitle, double txAmount) {
