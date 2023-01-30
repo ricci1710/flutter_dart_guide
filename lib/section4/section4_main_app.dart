@@ -8,10 +8,17 @@ class Section4MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    final ThemeData theme = ThemeData();
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter App',
-      home: Section4HomePage(),
+      title: 'Personal Expenses',
+      theme: theme.copyWith(
+        primaryColor: Colors.purple,
+        colorScheme: theme.colorScheme.copyWith(
+          secondary: Colors.amber,
+        ),
+      ),
+      home: const Section4HomePage(),
     );
   }
 }
@@ -59,7 +66,7 @@ class _Section4HomePageState extends State<Section4HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter App'),
+        title: const Text('Personal Expenses'),
         actions: [
           IconButton(
             onPressed: () => _startAddNewTransaction(context),
