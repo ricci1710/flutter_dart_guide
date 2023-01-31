@@ -17,6 +17,9 @@ class Section4MainApp extends StatelessWidget {
               fontFamily: 'Open Sans',
               fontSize: 18,
             ),
+            labelSmall: const TextStyle(
+              color: Colors.white,
+            ),
           ),
       appBarTheme: const AppBarTheme(
         titleTextStyle: TextStyle(
