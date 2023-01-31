@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_guide/section4/models/transaction.dart';
+import 'package:flutter_dart_guide/section4/widgets/chart.dart';
 import 'package:flutter_dart_guide/section4/widgets/new_transaction.dart';
 import 'package:flutter_dart_guide/section4/widgets/transaction_list.dart';
 
@@ -50,6 +51,16 @@ class _Section4HomePageState extends State<Section4HomePage> {
     // Transaction(id: 'id2', title: 'Weekly Groceries', amount: 16.53, date: DateTime.now()),
   ];
 
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(
+        DateTime.now().subtract(
+          const Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
+
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
       title: txTitle,
@@ -98,14 +109,7 @@ class _Section4HomePageState extends State<Section4HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                elevation: 5,
-                child: Text('CHART!'),
-              ),
-            ),
+            Chart(_recentTransactions),
             TransactionList(_userTransactions),
           ],
         ),

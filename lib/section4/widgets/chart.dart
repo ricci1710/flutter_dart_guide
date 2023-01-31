@@ -26,10 +26,10 @@ class Chart extends StatelessWidget {
         }
       }
 
-      print(DateFormat.E(weekDay));
-      print(totalSum);
-
-      return {'day': DateFormat.E(weekDay), 'amount': totalSum};
+      return {
+        'day': DateFormat.E().format(weekDay).substring(0, 1),
+        'amount': totalSum,
+      };
     });
   }
 
@@ -39,7 +39,9 @@ class Chart extends StatelessWidget {
       elevation: 6,
       margin: const EdgeInsets.all(20),
       child: Row(
-        children: const [],
+        children: groupTransactionValues.map((data) {
+          return Text('${data['day']}: ${data['amount']}');
+        }).toList(),
       ),
     );
   }
