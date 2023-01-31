@@ -11,6 +11,9 @@ class Section4MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = ThemeData(
       primarySwatch: Colors.purple,
+      colorScheme: const ColorScheme.light(
+        error: Colors.red,
+      ),
       fontFamily: 'Quicksand',
       textTheme: ThemeData.light().textTheme.copyWith(
             titleSmall: const TextStyle(
@@ -77,6 +80,12 @@ class _Section4HomePageState extends State<Section4HomePage> {
     });
   }
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((element) => element.id == id);
+    });
+  }
+
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
       context: ctx,
@@ -113,7 +122,7 @@ class _Section4HomePageState extends State<Section4HomePage> {
         child: Column(
           children: [
             Chart(_recentTransactions),
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions, _deleteTransaction),
           ],
         ),
       ),
