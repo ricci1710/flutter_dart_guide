@@ -14,13 +14,14 @@ class _NewTransactionState extends State<NewTransaction> {
   final _titleController = TextEditingController();
 
   final _amountController = TextEditingController();
-  DateTime _selectedDate = DateTime.now();
+  DateTime _selectedDate =DateTime(2018);
+  final DateTime _invalidatedDate = DateTime(2018);
 
   void _submitData() {
     final enteredTitle = _titleController.text;
     final enteredAmount = _amountController.text;
 
-    if (enteredTitle.isEmpty || enteredAmount.isEmpty) {
+    if (enteredTitle.isEmpty || enteredAmount.isEmpty || _selectedDate.year <=  _invalidatedDate.year) {
       return;
     }
 
@@ -31,6 +32,7 @@ class _NewTransactionState extends State<NewTransaction> {
     widget.transactionHandler(
       enteredTitle,
       double.parse(enteredAmount),
+      _selectedDate,
     );
 
     Navigator.of(context).pop();
@@ -77,7 +79,9 @@ class _NewTransactionState extends State<NewTransaction> {
               child: Row(
                 children: [
                   Expanded(
-                    child: Text('Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
+                    child: Text(_selectedDate.year <=  _invalidatedDate.year ? 'No Date' :
+                     'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
+                    ),
                   ),
                   TextButton(
                     style: ButtonStyle(
