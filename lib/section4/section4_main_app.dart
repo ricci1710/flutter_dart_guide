@@ -121,11 +121,11 @@ class _Section4HomePageState extends State<Section4HomePage> {
         child: Column(
           children: [
             SizedBox(
-              height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.31,
+              height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.25,
               child: Chart(_recentTransactions),
             ),
             SizedBox(
-              height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.69,
+              height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.75,
               child: TransactionList(_userTransactions, _deleteTransaction),
             ),
           ],
