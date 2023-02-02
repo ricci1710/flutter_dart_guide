@@ -137,7 +137,7 @@ class _Section4HomePageState extends State<Section4HomePage> {
             ),
             _showChart
                 ? SizedBox(
-                    height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.25,
+                    height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
                     child: Chart(_recentTransactions),
                   )
                 : SizedBox(
