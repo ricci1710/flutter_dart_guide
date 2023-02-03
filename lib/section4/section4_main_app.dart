@@ -105,43 +105,36 @@ class _Section4HomePageState extends State<Section4HomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
-    final PreferredSizeWidget appBar = Platform.isIOS
+
+    final appBar = Platform.isIOS
         ? CupertinoNavigationBar(
             middle: const Text(
               'Personal Expenses',
-              style: TextStyle(
-                fontFamily: 'Open Sans',
-              ),
             ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: <Widget>[
                 GestureDetector(
                   child: const Icon(CupertinoIcons.add),
                   onTap: () => _startAddNewTransaction(context),
                 ),
               ],
             ),
-          ) as PreferredSizeWidget
+          )
         : AppBar(
             title: const Text(
               'Personal Expenses',
-              style: TextStyle(
-                fontFamily: 'Open Sans',
-              ),
             ),
-            actions: [
+            actions: <Widget>[
               IconButton(
+                icon: const Icon(Icons.add),
                 onPressed: () => _startAddNewTransaction(context),
-                icon: const Icon(
-                  Icons.add,
-                ),
               ),
             ],
           );
 
     final txListWidget = SizedBox(
-      height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top) * 0.75,
+      height: (mediaQuery.size.height - (appBar as PreferredSizeWidget).preferredSize.height - mediaQuery.padding.top) * 0.75,
       child: TransactionList(_userTransactions, _deleteTransaction),
     );
 
