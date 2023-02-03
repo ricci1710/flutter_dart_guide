@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dart_guide/section4/models/transaction.dart';
-import 'package:flutter_dart_guide/section4/widgets/chart.dart';
-import 'package:flutter_dart_guide/section4/widgets/new_transaction.dart';
-import 'package:flutter_dart_guide/section4/widgets/transaction_list.dart';
+
+import './models/transaction.dart';
+import './widgets/chart.dart';
+import './widgets/new_transaction.dart';
+import './widgets/transaction_list.dart';
 
 class Section4MainApp extends StatelessWidget {
   const Section4MainApp({Key? key}) : super(key: key);
@@ -103,71 +105,96 @@ class _Section4HomePageState extends State<Section4HomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
-    final appBar = AppBar(
-      title: const Text(
-        'Personal Expenses',
-        style: TextStyle(
-          fontFamily: 'Open Sans',
-        ),
-      ),
-      actions: [
-        IconButton(
-          onPressed: () => _startAddNewTransaction(context),
-          icon: const Icon(
-            Icons.add,
-          ),
-        ),
-      ],
-    );
+    final PreferredSizeWidget appBar = Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: const Text(
+              'Personal Expenses',
+              style: TextStyle(
+                fontFamily: 'Open Sans',
+              ),
+            ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  child: const Icon(CupertinoIcons.add),
+                  onTap: () => _startAddNewTransaction(context),
+                )
+              ],
+            ),
+          ) as PreferredSize
+        : AppBar(
+            title: const Text(
+              'Personal Expenses',
+              style: TextStyle(
+                fontFamily: 'Open Sans',
+              ),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () => _startAddNewTransaction(context),
+                icon: const Icon(
+                  Icons.add,
+                ),
+              ),
+            ],
+          );
+
     final txListWidget = SizedBox(
       height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top) * 0.75,
       child: TransactionList(_userTransactions, _deleteTransaction),
     );
 
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Show Chart'),
-                  Switch.adaptive(
-                    value: _showChart,
-                    activeColor: Theme.of(context).colorScheme.secondary,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            if (!isLandscape)
-              SizedBox(
-                height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top) * 0.2,
-                child: Chart(_recentTransactions),
-              ),
-            if (!isLandscape) txListWidget,
-            if (isLandscape)
-              _showChart
-                  ? SizedBox(
-                      height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top) * 0.7,
-                      child: Chart(_recentTransactions),
-                    )
-                  : txListWidget,
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Platform.isIOS
-          ? Container()
-          : FloatingActionButton(
-              child: const Icon(Icons.add),
-              onPressed: () => _startAddNewTransaction(context),
+    final pageBody = SingleChildScrollView(
+      child: Column(
+        children: [
+          if (isLandscape)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Show Chart'),
+                Switch.adaptive(
+                  value: _showChart,
+                  activeColor: Theme.of(context).colorScheme.secondary,
+                  onChanged: (val) {
+                    setState(() {
+                      _showChart = val;
+                    });
+                  },
+                ),
+              ],
             ),
+          if (!isLandscape)
+            SizedBox(
+              height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top) * 0.2,
+              child: Chart(_recentTransactions),
+            ),
+          if (!isLandscape) txListWidget,
+          if (isLandscape)
+            _showChart
+                ? SizedBox(
+                    height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top) * 0.7,
+                    child: Chart(_recentTransactions),
+                  )
+                : txListWidget,
+        ],
+      ),
     );
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            child: pageBody,
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: pageBody,
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: Platform.isIOS
+                ? Container()
+                : FloatingActionButton(
+                    child: const Icon(Icons.add),
+                    onPressed: () => _startAddNewTransaction(context),
+                  ),
+          );
   }
 }
