@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -89,27 +92,40 @@ class _NewTransactionState extends State<NewTransaction> {
                         _selectedDate.year <= _invalidatedDate.year ? 'No Date' : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
                       ),
                     ),
-                    TextButton(
-                      style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
-                      ),
-                      onPressed: _presentDatePicker,
-                      child: const Text(
-                        'Choose Date',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                    Platform.isIOS
+                        ? CupertinoButton(
+                            onPressed: _presentDatePicker,
+                            child: const Text(
+                              'Choose Date',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        : TextButton(
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
+                            ),
+                            onPressed: _presentDatePicker,
+                            child: const Text(
+                              'Choose Date',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: _submitData,
-                style: ButtonStyle(
-                  foregroundColor: MaterialStatePropertyAll(Theme.of(context).textTheme.labelSmall?.color),
-                  backgroundColor: MaterialStatePropertyAll(Theme.of(context).primaryColor),
-                ),
-                child: const Text('Add Transaction'),
-              ),
+              Platform.isIOS
+                  ? CupertinoButton(
+                      onPressed: _submitData,
+                      child: const Text('Add Transaction'),
+                    )
+                  : ElevatedButton(
+                      onPressed: _submitData,
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStatePropertyAll(Theme.of(context).textTheme.labelSmall?.color),
+                        backgroundColor: MaterialStatePropertyAll(Theme.of(context).primaryColor),
+                      ),
+                      child: const Text('Add Transaction'),
+                    ),
             ],
           ),
         ),

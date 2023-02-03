@@ -119,10 +119,10 @@ class _Section4HomePageState extends State<Section4HomePage> {
                 GestureDetector(
                   child: const Icon(CupertinoIcons.add),
                   onTap: () => _startAddNewTransaction(context),
-                )
+                ),
               ],
             ),
-          ) as PreferredSize
+          ) as PreferredSizeWidget
         : AppBar(
             title: const Text(
               'Personal Expenses',
@@ -145,39 +145,44 @@ class _Section4HomePageState extends State<Section4HomePage> {
       child: TransactionList(_userTransactions, _deleteTransaction),
     );
 
-    final pageBody = SingleChildScrollView(
-      child: Column(
-        children: [
-          if (isLandscape)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Show Chart'),
-                Switch.adaptive(
-                  value: _showChart,
-                  activeColor: Theme.of(context).colorScheme.secondary,
-                  onChanged: (val) {
-                    setState(() {
-                      _showChart = val;
-                    });
-                  },
-                ),
-              ],
-            ),
-          if (!isLandscape)
-            SizedBox(
-              height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top) * 0.2,
-              child: Chart(_recentTransactions),
-            ),
-          if (!isLandscape) txListWidget,
-          if (isLandscape)
-            _showChart
-                ? SizedBox(
-                    height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top) * 0.7,
-                    child: Chart(_recentTransactions),
-                  )
-                : txListWidget,
-        ],
+    final pageBody = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Show Chart',
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  Switch.adaptive(
+                    value: _showChart,
+                    activeColor: Theme.of(context).colorScheme.secondary,
+                    onChanged: (val) {
+                      setState(() {
+                        _showChart = val;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            if (!isLandscape)
+              SizedBox(
+                height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top) * 0.2,
+                child: Chart(_recentTransactions),
+              ),
+            if (!isLandscape) txListWidget,
+            if (isLandscape)
+              _showChart
+                  ? SizedBox(
+                      height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top) * 0.7,
+                      child: Chart(_recentTransactions),
+                    )
+                  : txListWidget,
+          ],
+        ),
       ),
     );
 
