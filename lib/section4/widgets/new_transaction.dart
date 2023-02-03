@@ -14,14 +14,14 @@ class _NewTransactionState extends State<NewTransaction> {
   final _titleController = TextEditingController();
 
   final _amountController = TextEditingController();
-  DateTime _selectedDate =DateTime(2018);
+  DateTime _selectedDate = DateTime(2018);
   final DateTime _invalidatedDate = DateTime(2018);
 
   void _submitData() {
     final enteredTitle = _titleController.text;
     final enteredAmount = _amountController.text;
 
-    if (enteredTitle.isEmpty || enteredAmount.isEmpty || _selectedDate.year <=  _invalidatedDate.year) {
+    if (enteredTitle.isEmpty || enteredAmount.isEmpty || _selectedDate.year <= _invalidatedDate.year) {
       return;
     }
 
@@ -58,53 +58,60 @@ class _NewTransactionState extends State<NewTransaction> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              decoration: const InputDecoration(labelText: 'Title'),
-              controller: _titleController,
-              onSubmitted: (_) => _submitData(),
-            ),
-            TextField(
-              decoration: const InputDecoration(labelText: 'Amount'),
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submitData(),
-            ),
-            SizedBox(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(_selectedDate.year <=  _invalidatedDate.year ? 'No Date' :
-                     'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
-                    ),
-                  ),
-                  TextButton(
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
-                    ),
-                    onPressed: _presentDatePicker,
-                    child: const Text(
-                      'Choose Date',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                decoration: const InputDecoration(labelText: 'Title'),
+                controller: _titleController,
+                onSubmitted: (_) => _submitData(),
               ),
-            ),
-            ElevatedButton(
-              onPressed: _submitData,
-              style: ButtonStyle(
-                foregroundColor: MaterialStatePropertyAll(Theme.of(context).textTheme.labelSmall?.color),
-                backgroundColor: MaterialStatePropertyAll(Theme.of(context).primaryColor),
+              TextField(
+                decoration: const InputDecoration(labelText: 'Amount'),
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => _submitData(),
               ),
-              child: const Text('Add Transaction'),
-            ),
-          ],
+              SizedBox(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        _selectedDate.year <= _invalidatedDate.year ? 'No Date' : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
+                      ),
+                    ),
+                    TextButton(
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
+                      ),
+                      onPressed: _presentDatePicker,
+                      child: const Text(
+                        'Choose Date',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ElevatedButton(
+                onPressed: _submitData,
+                style: ButtonStyle(
+                  foregroundColor: MaterialStatePropertyAll(Theme.of(context).textTheme.labelSmall?.color),
+                  backgroundColor: MaterialStatePropertyAll(Theme.of(context).primaryColor),
+                ),
+                child: const Text('Add Transaction'),
+              ),
+            ],
+          ),
         ),
       ),
     );
