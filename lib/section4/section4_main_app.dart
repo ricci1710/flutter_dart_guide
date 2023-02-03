@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dart_guide/section4/models/transaction.dart';
 import 'package:flutter_dart_guide/section4/widgets/chart.dart';
@@ -132,8 +134,9 @@ class _Section4HomePageState extends State<Section4HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text('Show Chart'),
-                  Switch(
+                  Switch.adaptive(
                     value: _showChart,
+                    activeColor: Theme.of(context).colorScheme.secondary,
                     onChanged: (val) {
                       setState(() {
                         _showChart = val;
@@ -159,10 +162,12 @@ class _Section4HomePageState extends State<Section4HomePage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => _startAddNewTransaction(context),
-      ),
+      floatingActionButton: Platform.isIOS
+          ? Container()
+          : FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () => _startAddNewTransaction(context),
+            ),
     );
   }
 }
