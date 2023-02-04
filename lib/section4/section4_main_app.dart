@@ -37,14 +37,24 @@ class Section4MainApp extends StatelessWidget {
       ),
     );
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Personal Expenses',
-      theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(secondary: Colors.amber),
-      ),
-      home: const Section4HomePage(),
-    );
+    return Platform.isIOS
+        ? const CupertinoApp(
+            debugShowCheckedModeBanner: true,
+            title: 'Personal Expenses',
+            theme: CupertinoThemeData(
+              primaryColor: Colors.purple,
+              brightness: Brightness.light,
+            ),
+            home: Section4HomePage(),
+          )
+        : MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Personal Expenses',
+            theme: theme.copyWith(
+              colorScheme: theme.colorScheme.copyWith(secondary: Colors.amber),
+            ),
+            home: const Section4HomePage(),
+          );
   }
 }
 
@@ -181,6 +191,7 @@ class _Section4HomePageState extends State<Section4HomePage> {
 
     return Platform.isIOS
         ? CupertinoPageScaffold(
+            navigationBar: appBar as ObstructingPreferredSizeWidget,
             child: pageBody,
           )
         : Scaffold(
