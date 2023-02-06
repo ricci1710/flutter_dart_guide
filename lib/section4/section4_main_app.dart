@@ -150,12 +150,9 @@ class _Section4HomePageState extends State<Section4HomePage> {
     ];
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final isLandscape = mediaQuery.orientation == Orientation.landscape;
-
-    final appBar = Platform.isIOS
+  /// Erstellt die AppBar in Abhängigkeit der Plattform.
+  Widget _buildAppBar() {
+    return Platform.isIOS
         ? CupertinoNavigationBar(
             middle: const Text(
               'Personal Expenses',
@@ -181,6 +178,14 @@ class _Section4HomePageState extends State<Section4HomePage> {
               ),
             ],
           );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final isLandscape = mediaQuery.orientation == Orientation.landscape;
+
+    final appBar = _buildAppBar();
 
     final txListWidget = SizedBox(
       height: (mediaQuery.size.height - (appBar as PreferredSizeWidget).preferredSize.height - mediaQuery.padding.top) * 0.75,
