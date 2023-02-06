@@ -65,9 +65,26 @@ class Section4HomePage extends StatefulWidget {
   State<Section4HomePage> createState() => _Section4HomePageState();
 }
 
-class _Section4HomePageState extends State<Section4HomePage> {
+class _Section4HomePageState extends State<Section4HomePage> with WidgetsBindingObserver {
   final List<Transaction> _userTransactions = [];
   bool _showChart = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
