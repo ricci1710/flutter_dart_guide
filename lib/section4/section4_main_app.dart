@@ -101,7 +101,7 @@ class _Section4HomePageState extends State<Section4HomePage> with WidgetsBinding
       title: txTitle,
       amount: txAmount,
       date: chosenDate,
-      id: DateTime.now().toString(),
+      id: UniqueKey().toString(),
     );
 
     setState(() {
