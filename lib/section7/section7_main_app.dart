@@ -1,4 +1,5 @@
 /// Cooking App
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import './screens/categories_screen.dart';
@@ -40,7 +41,9 @@ class Section7MainApp extends StatelessWidget {
         MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
       },
       onGenerateRoute: (settings) {
-        print(settings.arguments);
+        if (kDebugMode) {
+          print(settings.arguments);
+        }
 
         /// if not registered in routes
         return MaterialPageRoute(builder: (ctx) => const CategoriesScreen());
