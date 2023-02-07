@@ -1,5 +1,6 @@
 /// Cooking App
 import 'package:flutter/material.dart';
+import 'package:flutter_dart_guide/section7/widgets/category_meals_screen.dart';
 
 import './widgets/categories_screen.dart';
 
@@ -12,8 +13,7 @@ class Section7MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'DeliMeals',
       theme: ThemeData(
-        primarySwatch: Colors.pink,
-        colorScheme: const ColorScheme.light(
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink).copyWith(
           secondary: Colors.amber,
         ),
         canvasColor: const Color.fromRGBO(255, 254, 229, 1),
@@ -33,6 +33,9 @@ class Section7MainApp extends StatelessWidget {
             ),
       ),
       home: const CategoriesScreen(),
+      routes: {
+        '/category-meals': (ctx) => CategoryMealsScreen(),
+      },
     );
   }
 }
