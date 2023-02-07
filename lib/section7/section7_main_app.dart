@@ -1,8 +1,8 @@
 /// Cooking App
 import 'package:flutter/material.dart';
-import 'package:flutter_dart_guide/section7/widgets/category_meals_screen.dart';
+import 'package:flutter_dart_guide/section7/screens/category_meals_screen.dart';
 
-import './widgets/categories_screen.dart';
+import 'screens/categories_screen.dart';
 
 class Section7MainApp extends StatelessWidget {
   const Section7MainApp({super.key});
