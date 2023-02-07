@@ -17,10 +17,10 @@ class CategoryMealsScreen extends StatelessWidget {
         title: Text(categoryTitle!),
       ),
       body: const Center(
-        child: Text(
-          'The Recipes For The Category!',
-        ),
-      ),
+          // child: ListView.builder(itemBuilder: (ctx, index) {
+          //
+          // }, itemCount: ,),
+          ),
     );
   }
 }
