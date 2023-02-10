@@ -1,39 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dart_guide/section7/widgets/meal_item.dart';
 
 import '../mock/dummy_data.dart';
+import '../models/meal.dart';
+import '../widgets/meal_item.dart';
 
-class CategoryMealsScreen extends StatelessWidget {
+class CategoryMealsScreen extends StatefulWidget {
   static const routeName = '/category-meals';
 
   const CategoryMealsScreen({super.key});
 
   @override
+  State<CategoryMealsScreen> createState() => _CategoryMealsScreenState();
+}
+
+class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
+  late String categoryTitle;
+  late List<Meal> displaydMeals;
+  var _loadedInitData = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (!_loadedInitData) {
+      final routeArgs = ModalRoute.of(context)?.settings.arguments as Map<String, String>;
+      final categoryId = routeArgs['id'];
+
+      categoryTitle = routeArgs['title']!;
+      displaydMeals = dummyMeals.where((meal) => meal.categories.contains(categoryId)).toList();
+      _loadedInitData = true;
+    }
+    super.didChangeDependencies();
+  }
+
+  void _removeMeal(String mealId) {
+    setState(() {
+      displaydMeals.removeWhere((meal) => meal.id == mealId);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final routeArgs = ModalRoute.of(context)?.settings.arguments as Map<String, String>;
-
-    final categoryId = routeArgs['id'];
-    final categoryTitle = routeArgs['title'];
-
-    final categoryMeals = dummyMeals.where((meal) => meal.categories.contains(categoryId)).toList();
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(categoryTitle!),
+        title: Text(categoryTitle),
       ),
       body: Center(
         child: ListView.builder(
           itemBuilder: (ctx, index) {
             return MealItem(
-              id: categoryMeals[index].id,
-              title: categoryMeals[index].title,
-              imageUrl: categoryMeals[index].imageUrl,
-              affordability: categoryMeals[index].affordability,
-              complexity: categoryMeals[index].complexity,
-              duration: categoryMeals[index].duration,
+              id: displaydMeals[index].id,
+              title: displaydMeals[index].title,
+              imageUrl: displaydMeals[index].imageUrl,
+              affordability: displaydMeals[index].affordability,
+              complexity: displaydMeals[index].complexity,
+              duration: displaydMeals[index].duration,
+              removeItem: _removeMeal,
             );
           },
-          itemCount: categoryMeals.length,
+          itemCount: displaydMeals.length,
         ),
       ),
     );
