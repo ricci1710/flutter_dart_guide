@@ -10,10 +10,6 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridTile(
-      child: Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
-      ),
       footer: GridTileBar(
         backgroundColor: Colors.black54,
         leading: IconButton(
@@ -28,6 +24,10 @@ class ProductItem extends StatelessWidget {
           icon: const Icon(Icons.shopping_cart),
           onPressed: () {},
         ),
+      ),
+      child: Image.network(
+        imageUrl,
+        fit: BoxFit.cover,
       ),
     );
   }
