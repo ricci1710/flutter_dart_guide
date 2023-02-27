@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dart_guide/section7/widgets/meal_item.dart';
 
 import '../models/meal.dart';
+import '../widgets/meal_item.dart';
 
 class FavoritesScreen extends StatelessWidget {
   final List<Meal> favoritedMeals;
