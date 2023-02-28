@@ -10,7 +10,12 @@ class Section8MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MyShop',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        fontFamily: 'Lato',
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(
+          secondary: Colors.deepOrange,
+        ),
+      ),
       home: ProductsOverviewScreen(),
     );
   }
