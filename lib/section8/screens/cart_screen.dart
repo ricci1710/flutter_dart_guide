@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 
 import '../providers/cart.dart';
 
-class CardScreen extends StatelessWidget {
-  const CardScreen({Key? key}) : super(key: key);
+class CartScreen extends StatelessWidget {
+  static const routeName = '/card';
+
+  const CartScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +23,28 @@ class CardScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
                     'Total',
                     style: TextStyle(fontSize: 20),
                   ),
-                  const SizedBox(width: 10),
+                  const Spacer(),
                   Chip(
-                    label: Text('\$${cart.totalAmount}'),
-                    backgroundColor: Theme.of(context).primaryColor,
+                    label: Text(
+                      '\$${cart.totalAmount}',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryTextTheme.titleSmall?.color,
+                      ),
+                    ),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
+                    ),
+                    child: const Text('ORDER NOW'),
                   )
                 ],
               ),

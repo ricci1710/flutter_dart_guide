@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import './providers/cart.dart';
 import './providers/products.dart';
+import './screens/cart_screen.dart';
 import './screens/product_detail_screen.dart';
 import './screens/products_overview_screen.dart';
 
@@ -25,13 +26,14 @@ class Section8MainApp extends StatelessWidget {
         title: 'MyShop',
         theme: ThemeData(
           fontFamily: 'Lato',
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(
             secondary: Colors.deepOrange,
           ),
         ),
         home: const ProductsOverviewScreen(),
         routes: {
           ProductDetailScreen.routeName: (ctx) => const ProductDetailScreen(),
+          CartScreen.routeName: (ctx) => const CartScreen(),
         },
       ),
     );
